@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +10,44 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(128, 128, 128, 0.267);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1{
+  @apply text-xl font-bold my-5
+}
+
+h2{
+  @apply font-semibold
+}
+
+.headRotate{
+  @apply border-gray-400 border-solid border-2 w-fit m-auto py-1 px-6 rounded-xl;
+}
+
+.headRotate:hover{
+  transition: transform 300ms;
+  transform: rotate(-3deg);
+}
+
+input{
+  @apply rounded-md
+}
+
+label{
+  @apply font-semibold
+}
+
+
+button{
+  @apply font-semibold px-3
+}
+
+main{
+  @apply my-12
 }
