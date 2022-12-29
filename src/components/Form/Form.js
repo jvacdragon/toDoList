@@ -1,42 +1,44 @@
 import { useRef } from "react";
 
 const Form = (props) => {
-    const task = useRef()
-    const description = useRef()
+  const task = useRef();
+  const description = useRef();
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const taskName = task.current.value
-        const taskDescription = description.current.value ? description.current.value : null
-        const id = Math.random()
+    const taskName = task.current.value;
+    const taskDescription = description.current.value
+      ? description.current.value
+      : null;
+    const id = Math.random();
 
-        const taskObj = {taskName, taskDescription, id}
+    const taskObj = { taskName, taskDescription, id };
 
-        if(taskName.trim() === '') return;
+    if (taskName.trim() === "") return;
 
-        props.handleToDo(taskObj)
+    props.handleToDo(taskObj);
 
-        task.current.value = ""
-        description.current.value = ""
-    }
+    task.current.value = "";
+    description.current.value = "";
+  };
 
-    return (
-        <form onSubmit={handleSubmit} className="text-center my-20">
-            <div className="grid grid-cols-1 gap-10  md:grid-cols-2 mx-6 my-12">
-                <section className="inline-block">
-                    <label>Task Name: </label>
-                    <input type='text' ref={task}></input>
-                </section>
-                <section>
-                    <label>Task Description (Optional): </label>
-                    <input type='text' ref={description} ></input>
-                </section>
-            </div>
+  return (
+    <form onSubmit={handleSubmit} className="text-center my-20">
+      <div className="grid grid-cols-1 gap-10  md:grid-cols-2 mx-6 my-12">
+        <section className="inline-block">
+          <label>Task Name: </label>
+          <input type="text" ref={task}></input>
+        </section>
+        <section>
+          <label>Task Description (Optional): </label>
+          <input type="text" ref={description}></input>
+        </section>
+      </div>
 
-            <button className="py-1 rounded-md bg-green-400/80">Add Task</button>
-        </form>
-    )
-}
+      <button className="py-1 rounded-md bg-green-400/80">Add Task</button>
+    </form>
+  );
+};
 
 export default Form;
