@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form/Form";
 import Head from "./components/Head/Head";
@@ -8,9 +8,13 @@ function App() {
   const [toDo, setToDo] = useState([]);
   const [done, setDone] = useState([]);
 
-  const handleToDo = (obj) => {
-    setToDo([...toDo, obj]);
-  };
+  useEffect(() => {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    console.log(tasks);
+
+    if (tasks) return setToDo(tasks);
+  }, []);
 
   const handleDiscard = (id, isToDo) => {
     if (isToDo) {
@@ -38,7 +42,7 @@ function App() {
     <React.Fragment>
       <Head />
 
-      <Form handleToDo={handleToDo} />
+      <Form />
 
       <main className="md:grid md:grid-cols-2 text-center">
         {toDo.length > 0 && (

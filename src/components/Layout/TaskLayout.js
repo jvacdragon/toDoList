@@ -1,5 +1,4 @@
 const TaskLayout = (props) => {
-  console.log(props);
 
   const handleDiscard = () => {
     props.handleDiscard(props.dutie.id, props.isToDo);

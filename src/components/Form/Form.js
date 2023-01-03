@@ -1,3 +1,4 @@
+import { setItem } from "../localFunctions";
 import { useRef } from "react";
 
 const Form = (props) => {
@@ -16,8 +17,9 @@ const Form = (props) => {
     const taskObj = { taskName, taskDescription, id };
 
     if (taskName.trim() === "") return;
-
-    props.handleToDo(taskObj);
+    /* 
+    props.handleToDo(taskObj); */
+    setItem(taskObj);
 
     task.current.value = "";
     description.current.value = "";
