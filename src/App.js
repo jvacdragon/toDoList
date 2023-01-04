@@ -3,46 +3,51 @@ import "./App.css";
 import Form from "./components/Form/Form";
 import Head from "./components/Head/Head";
 import Layout from "./components/Layout/LayoutList";
+import { setDoneItem } from "./components/localFunctions";
+import { handleDiscardExported } from "./components/localFunctions";
 
 function App() {
   const [toDo, setToDo] = useState([]);
   const [done, setDone] = useState([]);
 
+  const tasks = JSON.parse(localStorage.getItem("tasks"));
+  const tasksDone = JSON.parse(localStorage.getItem("done"));
+
+  
   useEffect(() => {
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    !tasks && localStorage.setItem("tasks", JSON.stringify(toDo));
+    !tasksDone && localStorage.setItem("done", JSON.stringify(done));
+    
+    tasks && setToDo(tasks);
+    tasksDone && setDone(tasksDone);
+  }, [tasks.length, tasksDone.length]);
 
-    console.log(tasks);
-
-    if (tasks) return setToDo(tasks);
-  }, []);
+  const handleToDo = () => {
+    setToDo(tasks);
+  };
 
   const handleDiscard = (id, isToDo) => {
     if (isToDo) {
-      const newArr = toDo.filter((item) => item.id !== id);
-      setToDo(newArr);
-    } else {
-      console.log(done);
+      handleDiscardExported(id, true);
 
-      const newArr = done.filter((item) => item.id !== id);
-      console.log(newArr);
-      setDone(newArr);
+      setToDo(tasks);
+    } else {
+      handleDiscardExported(id, false);
+
+      setDone(tasksDone);
     }
   };
 
   const handleDone = (id) => {
-    const taskDone = toDo.find((item) => item.id === id);
-
-    setDone([...done, taskDone]);
-    handleDiscard(id, true);
-
-    console.log(done);
+    setDoneItem(id);
+    setDone(tasksDone);
   };
 
   return (
     <React.Fragment>
       <Head />
 
-      <Form />
+      <Form handleToDo={handleToDo} />
 
       <main className="md:grid md:grid-cols-2 text-center">
         {toDo.length > 0 && (

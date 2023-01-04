@@ -17,9 +17,10 @@ const Form = (props) => {
     const taskObj = { taskName, taskDescription, id };
 
     if (taskName.trim() === "") return;
-    /* 
-    props.handleToDo(taskObj); */
+
     setItem(taskObj);
+
+    props.handleToDo();
 
     task.current.value = "";
     description.current.value = "";

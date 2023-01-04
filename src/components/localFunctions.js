@@ -15,8 +15,41 @@ export const setItem = (obj) => {
   }
 };
 
-/* export const setDoneItem = (obj) => {
-    const tasksToDo = JSON.parse(localStorage.getItem("tasks"))
+export const handleDiscardExported = (id, isToDo) => {
+  const tasks = JSON.parse(localStorage.getItem("tasks"));
+  const tasksDone = JSON.parse(localStorage.getItem("done"));
 
-    const taskDone = tasksToDo.find((item) => item.id === id);
-} */
+  if (isToDo) {
+    const newArr = tasks.filter((item) => item.id !== id);
+    const newArrString = JSON.stringify(newArr);
+
+    localStorage.setItem("tasks", newArrString);
+  } else {
+    const newArr = tasksDone.filter((item) => item.id !== id);
+
+    localStorage.setItem("done", JSON.stringify(newArr));
+  }
+};
+
+export const setDoneItem = (id) => {
+  const tasks = JSON.parse(localStorage.getItem("tasks"));
+  const tasksDone = JSON.parse(localStorage.getItem("done"));
+
+  if (tasksDone) {
+    const newTaskDone = tasks.find((item) => item.id === id);
+
+    const newDoneArr = JSON.stringify([...tasksDone, newTaskDone]);
+
+    localStorage.setItem("done", newDoneArr);
+  } else {
+    const taskDone = tasks.find((item) => item.id === id);
+
+    const doneArr = JSON.stringify([taskDone]);
+
+    localStorage.setItem("done", doneArr);
+
+    console.log(taskDone);
+  }
+
+  handleDiscardExported(id, true);
+};
