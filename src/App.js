@@ -20,7 +20,7 @@ function App() {
     
     tasks && setToDo(tasks);
     tasksDone && setDone(tasksDone);
-  }, [tasks.length, tasksDone.length]);
+  }, [toDo.length, done.length]);
 
   const handleToDo = () => {
     setToDo(tasks);
