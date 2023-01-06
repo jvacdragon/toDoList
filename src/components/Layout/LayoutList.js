@@ -3,6 +3,7 @@ import TaskLayout from "./TaskLayout";
 
 const Layout = (props) => {
   const [duties, setDuties] = useState();
+  
   useEffect(() => {
     if (props.duties) return setDuties(props.duties);
   }, [props.duties]);

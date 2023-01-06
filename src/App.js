@@ -13,14 +13,17 @@ function App() {
   const tasks = JSON.parse(localStorage.getItem("tasks"));
   const tasksDone = JSON.parse(localStorage.getItem("done"));
 
-  
+  if (!tasks || !tasksDone) {
+    localStorage.setItem("tasks", JSON.stringify(toDo));
+    localStorage.setItem("done", JSON.stringify(done));
+  }
+
   useEffect(() => {
-    !tasks && localStorage.setItem("tasks", JSON.stringify(toDo));
-    !tasksDone && localStorage.setItem("done", JSON.stringify(done));
-    
+
     tasks && setToDo(tasks);
     tasksDone && setDone(tasksDone);
-  }, [toDo.length, done.length]);
+
+  }, [tasks.length, tasksDone.length]);
 
   const handleToDo = () => {
     setToDo(tasks);
