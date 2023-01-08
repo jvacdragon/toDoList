@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form/Form";
@@ -7,8 +8,12 @@ import { setDoneItem } from "./components/localFunctions";
 import { handleDiscardExported } from "./components/localFunctions";
 
 function App() {
-  const [toDo, setToDo] = useState([]);
-  const [done, setDone] = useState([]);
+  const [toDo, setToDo] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
+  const [done, setDone] = useState(
+    JSON.parse(localStorage.getItem("done")) || []
+  );
 
   const tasks = JSON.parse(localStorage.getItem("tasks"));
   const tasksDone = JSON.parse(localStorage.getItem("done"));
@@ -19,10 +24,8 @@ function App() {
   }
 
   useEffect(() => {
-
     tasks && setToDo(tasks);
     tasksDone && setDone(tasksDone);
-
   }, [tasks.length, tasksDone.length]);
 
   const handleToDo = () => {
@@ -53,7 +56,7 @@ function App() {
       <Form handleToDo={handleToDo} />
 
       <main className="md:grid md:grid-cols-2 text-center">
-        {toDo.length > 0 && (
+        {toDo.length > 0 ? (
           <Layout
             isToDo={true}
             handleDiscard={handleDiscard}
@@ -63,12 +66,13 @@ function App() {
             name={"toDo"}
             duties={toDo}
           />
-        )}
-        {toDo.length === 0 && (
-          <p className="font-bold text-2xl my-auto">No tasks yet.</p>
+        ) : (
+          toDo.length === 0 && (
+            <p className="font-bold text-2xl my-auto">No tasks yet.</p>
+          )
         )}
 
-        {done.length > 0 && (
+        {done.length > 0 ? (
           <Layout
             isToDo={false}
             handleDiscard={handleDiscard}
@@ -77,11 +81,12 @@ function App() {
             done={""}
             name={"done"}
           />
-        )}
-        {done.length === 0 && (
-          <p className="font-bold text-2xl my-12 md:my-auto">
-            No tasks done yet.
-          </p>
+        ) : (
+          done.length === 0 && (
+            <p className="font-bold text-2xl my-12 md:my-auto">
+              No tasks done yet.
+            </p>
+          )
         )}
       </main>
     </React.Fragment>

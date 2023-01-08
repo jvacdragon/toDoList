@@ -1,7 +1,7 @@
 import { setItem } from "../localFunctions";
 import { useRef } from "react";
 
-const Form = (props) => {
+const Form = ({handleToDo}) => {
   const task = useRef();
   const description = useRef();
 
@@ -20,7 +20,7 @@ const Form = (props) => {
 
     setItem(taskObj);
 
-    props.handleToDo();
+    handleToDo();
 
     task.current.value = "";
     description.current.value = "";
