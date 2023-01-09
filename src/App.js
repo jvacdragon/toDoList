@@ -4,8 +4,11 @@ import "./App.css";
 import Form from "./components/Form/Form";
 import Head from "./components/Head/Head";
 import Layout from "./components/Layout/LayoutList";
-import { setDoneItem } from "./components/localFunctions";
-import { handleDiscardExported } from "./components/localFunctions";
+import {
+  handleDiscardExported,
+  getUndoneAll,
+  setDoneItem,
+} from "./components/localFunctions";
 
 function App() {
   const [toDo, setToDo] = useState(
@@ -49,6 +52,12 @@ function App() {
     setDone(tasksDone);
   };
 
+  const undoneAll = () => {
+    getUndoneAll();
+    setDone(tasksDone);
+    setToDo(tasks);
+  };
+
   return (
     <React.Fragment>
       <Head />
@@ -78,8 +87,9 @@ function App() {
             handleDiscard={handleDiscard}
             title="Done"
             duties={done}
-            done={""}
+            undone={true}
             name={"done"}
+            setUndoneAll={undoneAll}
           />
         ) : (
           done.length === 0 && (

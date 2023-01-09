@@ -52,3 +52,14 @@ button{
 main{
   @apply my-12
 }
+
+section::-webkit-scrollbar{
+  width: 5px;
+  margin-right: auto;
+}
+
+section::-webkit-scrollbar-thumb{
+  background-color: gray;
+  border-radius: 2px;
+  
+}

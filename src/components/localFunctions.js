@@ -47,9 +47,15 @@ export const setDoneItem = (id) => {
     const doneArr = JSON.stringify([taskDone]);
 
     localStorage.setItem("done", doneArr);
-
-    console.log(taskDone);
   }
 
   handleDiscardExported(id, true);
+};
+
+export const getUndoneAll = () => {
+  const tasks = JSON.parse(localStorage.getItem("tasks"));
+  const tasksDone = JSON.parse(localStorage.getItem("done"));
+
+  localStorage.setItem("tasks", JSON.stringify([...tasks, ...tasksDone]));
+  localStorage.setItem("done", JSON.stringify([]));
 };
